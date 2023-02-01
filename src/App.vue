@@ -15,9 +15,8 @@
 import { RouterLink, RouterView } from "vue-router";
 import useAuthStore from "@/stores/auth";
 
+const auth = useAuthStore();
 const logout = () => {
   auth.logout();
 };
-
-const auth = useAuthStore();
 </script>
