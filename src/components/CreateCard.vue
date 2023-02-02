@@ -1,17 +1,42 @@
 <template>
   <div>
-    <h5>create card for column</h5>
-
-    <input v-model="cardName" placeholder="cardName" type="text" /> <br />
-    <input v-model="summery" placeholder="summery" type="text" /> <br />
-    <textarea v-model="description" placeholder="description" /> <br />
-
-    <button @click="createCard">create</button>
+    <button @click="openModal" class="create-card">Добавить задачу</button>
+    <tr-modal
+      btnText="Добавить задачу"
+      :isOpened="createModal"
+      @mSubmit="createCard"
+      @mClose="closeModal"
+    >
+      <template v-slot:modal-body>
+        <input
+          v-model="cardName"
+          placeholder="cardName"
+          type="text"
+          class="input"
+        />
+        <br />
+        <input
+          v-model="summery"
+          placeholder="summary"
+          type="text"
+          class="input"
+        />
+        <br />
+        <textarea
+          v-model="description"
+          placeholder="description"
+          class="textarea"
+        />
+        <br />
+      </template>
+    </tr-modal>
   </div>
 </template>
 
 <script setup>
 import { ref, defineProps } from "vue";
+
+import TrModal from "@/components/kit/TrModal.vue";
 import axios from "axios";
 
 import useAuthStore from "@/stores/auth";
@@ -23,6 +48,16 @@ const emit = defineEmits(["cardCreated"]);
 const cardName = ref("");
 const summery = ref("");
 const description = ref("");
+
+const createModal = ref(false);
+
+const openModal = () => {
+  createModal.value = true;
+};
+
+const closeModal = () => {
+  createModal.value = false;
+};
 
 const createCard = async () => {
   if (!props.columnId) return;
@@ -44,6 +79,32 @@ const createCard = async () => {
   console.log(resp.data.message);
   if (resp.data.card) {
     emit("cardCreated", resp.data.card);
+    cardName.value = "";
+    summery.value = "";
+    description.value = "";
   }
+  createModal.value = false;
 };
 </script>
+
+<style scoped>
+.create-card {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #d4d2e3;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+.textarea {
+  width: 100%;
+  max-width: 300px;
+  height: 100px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #d4d2e3;
+  border: none;
+  border-radius: 30px;
+  outline: 0;
+}
+</style>

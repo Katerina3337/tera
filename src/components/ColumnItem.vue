@@ -1,8 +1,8 @@
 <template>
   <div>
     <h3>{{ column.name }} |id: {{ column.id }}|</h3>
-    <ul v-if="cardList && cardList.length">
-      <li v-for="card in cardList" :key="card.id">
+    <ul v-if="cardList && cardList.length" class="cards">
+      <li v-for="card in cardList" :key="card.id" class="card">
         {{ card.name }} <br />
         {{ card.summery }}
       </li>
@@ -43,3 +43,15 @@ const addCard = (card) => {
   cardList.value.push(card);
 };
 </script>
+
+<style scoped>
+.cards {
+  padding: 0;
+  list-style: none;
+}
+.card {
+  margin-bottom: 15px;
+  background-color: #d4d2e3;
+  border-radius: 5px;
+}
+</style>

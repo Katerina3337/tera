@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <h5>create column for project {{ app.activeProject }}</h5>
-
-    <button @click="openModal">create</button>
+  <div class="create-column">
+    <div @click="openModal">Добавить новую колонку</div>
     <tr-modal
       :isOpened="createModal"
       btnText="Добавить колонку"
@@ -10,6 +8,7 @@
       @mClose="closeModal"
     >
       <template v-slot:modal-body>
+        <h5>create column for project {{ app.activeProject }}</h5>
         <input
           v-model="columnName"
           type="text"
@@ -72,15 +71,11 @@ const closeModal = () => {
 </script>
 
 <style scoped>
-.input {
-  width: 100%;
-  max-width: 300px;
-  height: 45px;
-  padding: 0 20px;
-  font-size: 16px;
-  background-color: #d4d2e3;
-  border: none;
-  border-radius: 30px;
-  outline: 0;
+.create-column {
+  padding: 10px 15px;
+  color: #ffffff;
+  background-color: #5d5a88;
+  border-radius: 8px;
+  cursor: pointer;
 }
 </style>
