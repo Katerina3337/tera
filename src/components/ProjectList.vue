@@ -68,7 +68,7 @@ const addProject = (project) => {
 .list-item {
   margin-right: 20px;
   padding: 10px 15px;
-  font-size: 14px;
+  font-size: 15px;
   color: #ffffff;
   background-color: #5d5a88;
   border-radius: 8px;

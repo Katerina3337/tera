@@ -10,21 +10,21 @@
       <template v-slot:modal-body>
         <input
           v-model="cardName"
-          placeholder="cardName"
+          placeholder="Название"
           type="text"
           class="input"
         />
         <br />
         <input
           v-model="summery"
-          placeholder="summary"
+          placeholder="Краткое описание"
           type="text"
           class="input"
         />
         <br />
         <textarea
           v-model="description"
-          placeholder="description"
+          placeholder="Описание"
           class="textarea"
         />
         <br />
@@ -101,10 +101,11 @@ const createCard = async () => {
   max-width: 300px;
   height: 100px;
   padding: 10px 20px;
-  font-size: 16px;
+  font-size: 18px;
   background-color: #d4d2e3;
   border: none;
   border-radius: 30px;
   outline: 0;
+  resize: none;
 }
 </style>

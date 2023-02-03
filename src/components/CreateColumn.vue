@@ -1,6 +1,9 @@
 <template>
   <div class="create-column">
-    <div @click="openModal">Добавить новую колонку</div>
+    <div @click="openModal">
+      Добавить новую колонку
+      <font-awesome-icon icon="fa-solid fa-plus" class="icon" />
+    </div>
     <tr-modal
       :isOpened="createModal"
       btnText="Добавить колонку"
@@ -72,6 +75,8 @@ const closeModal = () => {
 
 <style scoped>
 .create-column {
+  display: flex;
+  align-items: center;
   padding: 10px 15px;
   color: #ffffff;
   background-color: #5d5a88;

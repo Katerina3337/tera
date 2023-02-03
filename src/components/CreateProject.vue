@@ -1,6 +1,22 @@
 <template>
   <div>
-    <button @click="openModal" class="project-button">Создать проект</button>
+    <div class="controls">
+      <button @click="openModal" class="project-button">
+        Создать проект<font-awesome-icon icon="fa-solid fa-plus" class="icon" />
+      </button>
+      <button @click="openModal" class="project-button">
+        Участники проекта<font-awesome-icon
+          icon="fa-solid fa-arrow-down"
+          class="icon"
+        />
+      </button>
+      <button @click="openModal" class="project-button">
+        Добавить участника<font-awesome-icon
+          icon="fa-solid fa-plus"
+          class="icon"
+        />
+      </button>
+    </div>
     <tr-modal
       btnText="Создать проект"
       :isOpened="createModal"
@@ -64,7 +80,13 @@ const closeModal = () => {
 </script>
 
 <style scoped>
+.controls {
+  display: flex;
+}
 .project-button {
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
   padding: 10px 15px;
   font-size: 14px;
   color: #ffffff;

@@ -82,10 +82,10 @@ const modalSubmit = (e) => {
   transform: rotate(-45deg);
 }
 .submit {
-  width: 150px;
+  min-width: 130px;
   height: 45px;
   margin: 35px 0 20px;
-  padding: 0 10px;
+  padding: 0 15px;
   font-size: 15px;
   color: #ffffff;
   background-color: #5d5a88;
