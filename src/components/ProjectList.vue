@@ -50,10 +50,11 @@ const addProject = (project) => {
 
 <style scoped>
 .project-list {
+  width: 90%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 30px;
+  margin: 0 15px 0 30px;
   padding: 10px 15px;
   background-color: #a4a2c4;
   border-radius: 8px;

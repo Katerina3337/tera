@@ -1,32 +1,25 @@
 <template>
   <div>
-    <h1>sign-in</h1>
-
-    <button @click="openModal">sign in</button>
-    <tr-modal
-      btnText="Войти"
-      :isOpened="createModal"
-      @mSubmit="signIn"
-      @mClose="closeModal"
-    >
-      <template v-slot:modal-body>
-        <input v-model="login" type="text" placeholder="Логин" class="input" />
-        <br />
-        <input
-          v-model="password"
-          type="text"
-          placeholder="Пароль"
-          class="input"
-        />
-      </template>
-    </tr-modal>
+    <div class="sign-form">
+      <input v-model="login" type="text" placeholder="Логин" class="input" />
+      <input
+        v-model="password"
+        type="text"
+        placeholder="Пароль"
+        class="input"
+      />
+      <button @click="signIn" class="submit sign-in__button">Войти</button>
+      <RouterLink to="/sign-up" class="submit sign-up__button"
+        >Зарегистрироваться</RouterLink
+      >
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
 
-import TrModal from "@/components/kit/TrModal.vue";
+import { useRouter } from "vue-router";
 import axios from "axios";
 import useAuthStore from "@/stores/auth";
 
@@ -34,14 +27,7 @@ const login = ref("");
 const password = ref("");
 const auth = useAuthStore();
 
-const createModal = ref(false);
-
-const openModal = () => {
-  createModal.value = true;
-};
-const closeModal = () => {
-  createModal.value = false;
-};
+const router = useRouter();
 
 const signIn = async () => {
   const response = await axios.post("http://localhost:3001/auth/login", {
@@ -55,6 +41,27 @@ const signIn = async () => {
     login.value = "";
     password.value = "";
   }
-  createModal.value = false;
+  router.push("/");
 };
 </script>
+
+<style scoped>
+.input {
+  margin-bottom: 25px;
+}
+.submit {
+  margin-top: 0;
+}
+.sign-in__button {
+  margin-top: 25px;
+}
+.sign-up__button {
+  margin: 10px 0 0 0;
+  display: flex;
+  align-items: center;
+  color: #5d5a88;
+  background-color: #d4d2e3;
+  border: 1px solid #5d5a88;
+  text-decoration: none;
+}
+</style>

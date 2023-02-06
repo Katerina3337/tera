@@ -1,53 +1,36 @@
 <template>
   <div>
-    <h1>sign-up</h1>
+    <div class="sign-form">
+      <input
+        v-model="name"
+        type="text"
+        placeholder="Имя пользователя"
+        class="input"
+      />
 
-    <button @click="openModal">send</button>
+      <input v-model="login" type="text" placeholder="Логин" class="input" />
 
-    <tr-modal
-      btnText="Зарегистрироваться"
-      :isOpened="createModal"
-      @mSubmit="signUp"
-      @mClose="closeModal"
-    >
-      <template v-slot:modal-body>
-        <input
-          v-model="name"
-          type="text"
-          placeholder="Имя пользователя"
-          class="input"
-        />
-        <br />
-        <input v-model="login" type="text" placeholder="Логин" class="input" />
-        <br />
-        <input
-          v-model="password"
-          type="text"
-          placeholder="Пароль"
-          class="input"
-        />
-      </template>
-    </tr-modal>
+      <input
+        v-model="password"
+        type="text"
+        placeholder="Пароль"
+        class="input"
+      />
+      <button @click="signUp" class="submit">Зарегистрироваться</button>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
-import TrModal from "@/components/kit/TrModal.vue";
+import { useRouter } from "vue-router";
 import axios from "axios";
 
 const name = ref("");
 const login = ref("");
 const password = ref("");
 
-const createModal = ref(false);
-
-const openModal = () => {
-  createModal.value = true;
-};
-const closeModal = () => {
-  createModal.value = false;
-};
+const router = useRouter();
 
 const signUp = async () => {
   const response = await axios.post("http://localhost:3001/auth/signup", {
@@ -58,7 +41,17 @@ const signUp = async () => {
   name.value = "";
   login.value = "";
   password.value = "";
-  createModal.value = false;
   console.log(response.data.message);
+
+  router.push("/sign-in");
 };
 </script>
+
+<style scoped>
+.input {
+  margin-bottom: 20px;
+}
+.submit {
+  margin-bottom: 0;
+}
+</style>

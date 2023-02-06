@@ -81,19 +81,4 @@ const modalSubmit = (e) => {
 .close:after {
   transform: rotate(-45deg);
 }
-.submit {
-  min-width: 130px;
-  height: 45px;
-  margin: 35px 0 20px;
-  padding: 0 15px;
-  font-size: 15px;
-  color: #ffffff;
-  background-color: #5d5a88;
-  border-radius: 47px;
-  border: none;
-  cursor: pointer;
-}
-.submit:hover {
-  box-shadow: 4px 4px 8px 0 rgba(34, 60, 80, 0.2);
-}
 </style>

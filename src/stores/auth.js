@@ -1,8 +1,10 @@
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { defineStore } from "pinia";
+import jwtParser from "../lib/jwtParser";
 
 export default defineStore("auth", () => {
   const token = ref(null);
+  const user = computed(() => jwtParser(token.value));
 
   const setToken = (t) => {
     token.value = t;
@@ -12,5 +14,5 @@ export default defineStore("auth", () => {
     token.value = null;
   };
 
-  return { token, setToken, logout };
+  return { token, user, setToken, logout };
 });
