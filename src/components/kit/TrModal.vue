@@ -1,9 +1,12 @@
 <template>
   <div v-if="isOpened" class="wrapper">
-    <div class="modal">
+    <div class="modal" :style="{ maxWidth: modalWidth + 'px' }">
+      {{ modalWidth }}
       <div @click="modalClose" class="close"></div>
       <slot name="modal-body"></slot>
-      <button @click="modalSubmit" class="submit">{{ btnText }}</button>
+      <button v-if="!hideSubmit" @click="modalSubmit" class="submit">
+        {{ btnText }}
+      </button>
     </div>
     <div @click="modalClose" class="overlay"></div>
   </div>
@@ -12,7 +15,7 @@
 <script setup>
 import { defineProps, defineEmits } from "vue";
 
-defineProps(["isOpened", "btnText"]);
+defineProps(["isOpened", "btnText", "hideSubmit", "modalWidth"]);
 
 const emit = defineEmits(["mSubmit", "mClose"]);
 
