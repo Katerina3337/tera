@@ -2,12 +2,28 @@
   <div>
     <h3 class="column-title">{{ column.name }} |id: {{ column.id }}|</h3>
     <ul v-if="cardList && cardList.length" class="cards">
-      <li v-for="card in cardList" :key="card.id" class="card">
+      <li
+        v-for="card in cardList"
+        :key="card.id"
+        @click="editCard(card, column.name)"
+        class="card"
+      >
         {{ card.name }} <br />
         {{ card.summery }}
       </li>
     </ul>
-
+    <tr-modal
+      :hide-submit="true"
+      btnText="Добавить задачу"
+      :isOpened="createModal"
+      :modalWidth="1000"
+      @mClose="closeModal"
+    >
+      <template v-slot:modal-body>
+        <card-edit :card="cardEdited" :col-name="cardEditedColName">
+        </card-edit>
+      </template>
+    </tr-modal>
     <create-card :column-id="column.id" @card-created="addCard" />
   </div>
 </template>
@@ -16,11 +32,30 @@
 import { defineProps, onMounted, ref } from "vue";
 import axios from "axios";
 import CreateCard from "@/components/CreateCard.vue";
+import TrModal from "@/components/kit/TrModal.vue";
+import CardEdit from "@/components/CardEdit.vue";
 
 import useAuthStore from "@/stores/auth";
 
 const auth = useAuthStore();
 const cardList = ref(null);
+
+const createModal = ref(false);
+const cardEdited = ref(null);
+const cardEditedColName = ref("");
+
+const openModal = () => {
+  createModal.value = true;
+};
+const closeModal = () => {
+  createModal.value = false;
+};
+
+const editCard = (card, columnName) => {
+  openModal();
+  cardEdited.value = card;
+  cardEditedColName.value = columnName;
+};
 
 const props = defineProps(["column"]);
 

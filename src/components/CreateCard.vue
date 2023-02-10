@@ -13,6 +13,7 @@
           placeholder="Название"
           type="text"
           class="input"
+          @keydown="enterSubmit($event, createCard)"
         />
         <br />
         <input
@@ -36,6 +37,7 @@
 <script setup>
 import { ref, defineProps } from "vue";
 
+import enterSubmit from "@/lib/enterSubmit";
 import TrModal from "@/components/kit/TrModal.vue";
 import axios from "axios";
 
