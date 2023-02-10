@@ -29,6 +29,7 @@
           type="text"
           placeholder="Введите название проекта"
           class="input"
+          @keydown="enterSubmit($event, createProject)"
         />
       </template>
     </tr-modal>
@@ -38,6 +39,7 @@
 <script setup>
 import { ref, defineEmits } from "vue";
 
+import enterSubmit from "@/lib/enterSubmit";
 import TrModal from "@/components/kit/TrModal.vue";
 
 import axios from "axios";
@@ -62,8 +64,6 @@ const createProject = async () => {
       },
     }
   );
-
-  console.log(resp.data.message);
 
   if (resp.data.project) {
     emit("projectCreated", resp.data.project);

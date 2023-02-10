@@ -17,6 +17,7 @@
           type="text"
           placeholder="Введите название колонки"
           class="input"
+          @keydown="enterSubmit($event, createColumn)"
         />
       </template>
     </tr-modal>
@@ -25,6 +26,8 @@
 
 <script setup>
 import { ref } from "vue";
+
+import enterSubmit from "@/lib/enterSubmit";
 
 import TrModal from "@/components/kit/TrModal.vue";
 
@@ -70,6 +73,7 @@ const openModal = () => {
 };
 const closeModal = () => {
   createModal.value = false;
+  columnName.value = "";
 };
 </script>
 

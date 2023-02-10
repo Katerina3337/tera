@@ -2,15 +2,15 @@
   <div class="s">
     <div class="navigation">
       <div class="controls">
-        <div class="column-name">Название колонки</div>
-        <div class="card-name">Название задачи</div>
+        <div class="column-name">{{ colName }}</div>
+        <div class="card-name">{{ card.name }}</div>
       </div>
-      <div class="submit-button">Сохранить</div>
+      <div @click="updateCard" class="submit-button">Сохранить</div>
     </div>
     <textarea
       class="summary"
       name="summary"
-      id=""
+      v-model="editedSummery"
       cols="120"
       rows="5"
     ></textarea>
@@ -18,12 +18,50 @@
     <textarea
       class="description"
       name="description"
-      id=""
+      v-model="editedDescription"
       cols="120"
       rows="15"
     ></textarea>
   </div>
 </template>
+
+<script setup>
+import { ref, defineProps } from "vue";
+import axios from "axios";
+import useAuthStore from "@/stores/auth";
+import useAppStore from "@/stores/app";
+
+const app = useAppStore();
+
+const auth = useAuthStore();
+
+const props = defineProps(["card", "colName"]);
+const editedSummery = ref(props.card.summery);
+const editedDescription = ref(props.card.description);
+
+const updateCard = async () => {
+  const resp = await axios.post(
+    "http://localhost:3001/card/update-card",
+    {
+      ...props.card,
+      summery: editedSummery.value,
+      description: editedDescription.value,
+    },
+    {
+      headers: {
+        Authorization: auth.token,
+      },
+    }
+  );
+  console.log(resp);
+  // console.log({
+  //   ...props.card,
+  //   summery: editedSummery.value,
+  //   description: editedDescription.value,
+  // });
+  app.refreshColumns();
+};
+</script>
 
 <style scoped>
 .navigation {

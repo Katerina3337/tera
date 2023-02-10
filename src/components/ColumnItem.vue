@@ -5,7 +5,7 @@
       <li
         v-for="card in cardList"
         :key="card.id"
-        @click="openModal"
+        @click="editCard(card, column.name)"
         class="card"
       >
         {{ card.name }} <br />
@@ -17,11 +17,11 @@
       btnText="Добавить задачу"
       :isOpened="createModal"
       :modalWidth="1000"
-      @mSubmit="createCard"
       @mClose="closeModal"
     >
       <template v-slot:modal-body>
-        <card-edit> a </card-edit>
+        <card-edit :card="cardEdited" :col-name="cardEditedColName">
+        </card-edit>
       </template>
     </tr-modal>
     <create-card :column-id="column.id" @card-created="addCard" />
@@ -41,12 +41,20 @@ const auth = useAuthStore();
 const cardList = ref(null);
 
 const createModal = ref(false);
+const cardEdited = ref(null);
+const cardEditedColName = ref("");
 
 const openModal = () => {
   createModal.value = true;
 };
 const closeModal = () => {
   createModal.value = false;
+};
+
+const editCard = (card, columnName) => {
+  openModal();
+  cardEdited.value = card;
+  cardEditedColName.value = columnName;
 };
 
 const props = defineProps(["column"]);
