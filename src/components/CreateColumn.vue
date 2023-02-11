@@ -1,5 +1,5 @@
 <template>
-  <div @click="openModal" class="create-column">
+  <div v-if="app.activeProject" @click="openModal" class="create-column">
     <div>
       Добавить новую колонку
       <font-awesome-icon icon="fa-solid fa-plus" class="icon" />
