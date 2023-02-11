@@ -20,8 +20,7 @@
       @mClose="closeModal"
     >
       <template v-slot:modal-body>
-        <card-edit :card="cardEdited" :col-name="cardEditedColName">
-        </card-edit>
+        <card-edit :card="cardEdited" :col-name="cardEditedColName" />
       </template>
     </tr-modal>
     <create-card :column-id="column.id" @card-created="addCard" />

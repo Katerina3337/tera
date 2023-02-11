@@ -24,19 +24,6 @@ export default defineStore("app", () => {
     columnList.value = resp.data;
   };
 
-  const refreshColumns = async () => {
-    const resp = await axios.get(
-      `http://localhost:3001/columns/get-project-columns/${activeProject.value}`,
-      {
-        headers: {
-          Authorization: auth.token,
-        },
-      }
-    );
-
-    columnList.value = resp.data;
-  };
-
   const addColumn = (column) => {
     if (!columnList.value) columnList.value = [column];
     else columnList.value.push(column);
@@ -47,6 +34,5 @@ export default defineStore("app", () => {
     columnList,
     setActiveProject,
     addColumn,
-    refreshColumns,
   };
 });

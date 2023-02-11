@@ -29,9 +29,6 @@
 import { ref, defineProps } from "vue";
 import axios from "axios";
 import useAuthStore from "@/stores/auth";
-import useAppStore from "@/stores/app";
-
-const app = useAppStore();
 
 const auth = useAuthStore();
 
@@ -54,12 +51,6 @@ const updateCard = async () => {
     }
   );
   console.log(resp);
-  // console.log({
-  //   ...props.card,
-  //   summery: editedSummery.value,
-  //   description: editedDescription.value,
-  // });
-  app.refreshColumns();
 };
 </script>
 

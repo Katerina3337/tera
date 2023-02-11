@@ -9,6 +9,7 @@
         :class="{ active: isActive(project.id) }"
       >
         {{ project.name }} |id: {{ project.id }}|
+        <font-awesome-icon icon="fa-solid fa-trash" />
       </li>
     </ul>
 

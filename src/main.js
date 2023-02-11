@@ -8,9 +8,16 @@ import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faUserSecret, faPlus, faArrowDown, faArrowRightFromBracket);
+library.add(
+  faUserSecret,
+  faPlus,
+  faArrowDown,
+  faArrowRightFromBracket,
+  faTrash
+);
 
 import "./assets/main.css";
 
