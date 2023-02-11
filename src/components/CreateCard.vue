@@ -21,12 +21,14 @@
           placeholder="Краткое описание"
           type="text"
           class="input"
+          @keydown="enterSubmit($event, createCard)"
         />
         <br />
         <textarea
           v-model="description"
           placeholder="Описание"
           class="textarea"
+          @keydown="enterSubmit($event, createCard)"
         />
         <br />
       </template>

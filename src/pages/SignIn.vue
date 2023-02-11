@@ -1,12 +1,19 @@
 <template>
   <div>
     <div class="sign-form">
-      <input v-model="login" type="text" placeholder="Логин" class="input" />
+      <input
+        v-model="login"
+        type="text"
+        placeholder="Логин"
+        class="input"
+        @keydown="enterSubmit($event, signIn)"
+      />
       <input
         v-model="password"
         type="text"
         placeholder="Пароль"
         class="input"
+        @keydown="enterSubmit($event, signIn)"
       />
       <button @click="signIn" class="submit sign-in__button">Войти</button>
       <RouterLink to="/sign-up" class="submit sign-up__button"
@@ -19,6 +26,7 @@
 <script setup>
 import { ref } from "vue";
 
+import enterSubmit from "@/lib/enterSubmit";
 import { useRouter } from "vue-router";
 import axios from "axios";
 import useAuthStore from "@/stores/auth";

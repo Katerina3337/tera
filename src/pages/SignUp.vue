@@ -6,15 +6,23 @@
         type="text"
         placeholder="Имя пользователя"
         class="input"
+        @keydown="enterSubmit($event, signUp)"
       />
 
-      <input v-model="login" type="text" placeholder="Логин" class="input" />
+      <input
+        v-model="login"
+        type="text"
+        placeholder="Логин"
+        class="input"
+        @keydown="enterSubmit($event, signUp)"
+      />
 
       <input
         v-model="password"
         type="text"
         placeholder="Пароль"
         class="input"
+        @keydown="enterSubmit($event, signUp)"
       />
       <button @click="signUp" class="submit">Зарегистрироваться</button>
     </div>
@@ -24,6 +32,8 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+
+import enterSubmit from "@/lib/enterSubmit";
 import axios from "axios";
 
 const name = ref("");
