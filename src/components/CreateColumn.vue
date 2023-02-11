@@ -1,27 +1,26 @@
 <template>
-  <div class="create-column">
-    <div @click="openModal">
+  <div @click="openModal" class="create-column">
+    <div>
       Добавить новую колонку
       <font-awesome-icon icon="fa-solid fa-plus" class="icon" />
     </div>
-    <tr-modal
-      :isOpened="createModal"
-      btnText="Добавить колонку"
-      @mSubmit="createColumn"
-      @mClose="closeModal"
-    >
-      <template v-slot:modal-body>
-        <h5>create column for project {{ app.activeProject }}</h5>
-        <input
-          v-model="columnName"
-          type="text"
-          placeholder="Введите название колонки"
-          class="input"
-          @keydown="enterSubmit($event, createColumn)"
-        />
-      </template>
-    </tr-modal>
   </div>
+  <tr-modal
+    :isOpened="createModal"
+    btnText="Добавить колонку"
+    @mSubmit="createColumn"
+    @mClose="closeModal"
+  >
+    <template v-slot:modal-body>
+      <input
+        v-model="columnName"
+        type="text"
+        placeholder="Введите название колонки"
+        class="input"
+        @keydown="enterSubmit($event, createColumn)"
+      />
+    </template>
+  </tr-modal>
 </template>
 
 <script setup>

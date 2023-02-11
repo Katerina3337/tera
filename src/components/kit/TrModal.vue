@@ -2,7 +2,9 @@
   <div v-if="isOpened" class="wrapper">
     <div class="modal" :style="{ maxWidth: modalWidth + 'px' }">
       {{ modalWidth }}
-      <div @click="modalClose" class="close"></div>
+      <div @click="modalClose" class="close">
+        <div class="cross-sign"></div>
+      </div>
       <slot name="modal-body"></slot>
       <button v-if="!hideSubmit" @click="modalSubmit" class="submit">
         {{ btnText }}
@@ -65,23 +67,31 @@ const modalSubmit = (e) => {
   z-index: 2;
 }
 .close {
-  cursor: pointer;
+  width: 35px;
+  height: 35px;
   position: absolute;
-  top: 20px;
-  right: 38px;
+  top: 5px;
+  right: 10px;
+  border-radius: 50%;
+  cursor: pointer;
 }
-.close:before,
-.close:after {
+.cross-sign {
+  position: absolute;
+  top: 15px;
+  right: 28px;
+}
+.cross-sign:before,
+.cross-sign:after {
   content: "";
   position: absolute;
   width: 24px;
   height: 4px;
   background: gray;
 }
-.close:before {
+.cross-sign:before {
   transform: rotate(45deg);
 }
-.close:after {
+.cross-sign:after {
   transform: rotate(-45deg);
 }
 </style>
