@@ -9,7 +9,10 @@
         :class="{ active: isActive(project.id) }"
       >
         {{ project.name }} |id: {{ project.id }}|
-        <font-awesome-icon icon="fa-solid fa-trash" />
+        <font-awesome-icon
+          @click="deleteProject(project.id)"
+          icon="fa-solid fa-trash"
+        />
       </li>
     </ul>
 
@@ -46,6 +49,30 @@ onMounted(async () => {
 
 const addProject = (project) => {
   projectList.value.push(project);
+};
+
+const deleteProject = async (id) => {
+  const resp = await axios.delete(
+    "http://localhost:3001/projects/delete-project",
+    {
+      headers: {
+        Authorization: auth.token,
+      },
+      data: {
+        project_id: id,
+      },
+    }
+  );
+
+  console.log(resp);
+  console.log(resp.status === 200);
+  if (resp.status === 200) {
+    const projectIdx = projectList.value.findIndex((item) => {
+      return item.id === id;
+    });
+
+    projectList.value.splice(projectIdx, 1);
+  }
 };
 </script>
 
