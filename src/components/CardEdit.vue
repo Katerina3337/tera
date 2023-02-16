@@ -1,5 +1,5 @@
 <template>
-  <div class="s">
+  <div>
     <div class="navigation">
       <div class="controls">
         <div class="column-name">{{ colName }}</div>

@@ -12,8 +12,8 @@
 <script setup>
 import ColumnItem from "@/components/ColumnItem.vue";
 import CreateColumn from "@/components/CreateColumn.vue";
-import useAppStore from "@/stores/app";
 
+import useAppStore from "@/stores/app";
 const app = useAppStore();
 </script>
 

@@ -1,6 +1,14 @@
 <template>
   <div>
-    <h3 class="column-title">{{ column.name }} |id: {{ column.id }}|</h3>
+    <div class="column">
+      <h3 class="column-title">{{ column.name }} |id: {{ column.id }}|</h3>
+      <font-awesome-icon
+        @click="deleteColumn(card.id)"
+        icon="fa-solid fa-trash"
+        title="Удалить колонку"
+        class="icon"
+      />
+    </div>
     <ul v-if="cardList && cardList.length" class="cards">
       <li
         v-for="card in cardList"
@@ -10,6 +18,12 @@
       >
         {{ card.name }} <br />
         {{ card.summery }}
+        <font-awesome-icon
+          @click="deleteCard(card.id)"
+          icon="fa-solid fa-trash"
+          title="Удалить задачу"
+          class="card-icon"
+        />
       </li>
     </ul>
     <tr-modal
@@ -33,6 +47,9 @@ import axios from "axios";
 import CreateCard from "@/components/CreateCard.vue";
 import TrModal from "@/components/kit/TrModal.vue";
 import CardEdit from "@/components/CardEdit.vue";
+
+import useAppStore from "@/stores/app";
+const app = useAppStore();
 
 import useAuthStore from "@/stores/auth";
 
@@ -76,9 +93,66 @@ onMounted(async () => {
 const addCard = (card) => {
   cardList.value.push(card);
 };
+
+const deleteCard = async (id) => {
+  const resp = await axios.delete(
+    `http://localhost:3001/card/delete-card/${id}`,
+    {
+      headers: {
+        Authorization: auth.token,
+      },
+    }
+  );
+
+  console.log(resp);
+  console.log(resp.status === 200);
+  if (resp.status === 200) {
+    const cardIdx = cardList.value.findIndex((item) => {
+      return item.id === id;
+    });
+
+    cardList.value.splice(cardIdx, 1);
+  }
+};
+
+const deleteColumn = async (id) => {
+  const resp = await axios.delete(
+    `http://localhost:3001/projects/delete-column/${id}`,
+    {
+      headers: {
+        Authorization: auth.token,
+      },
+      data: {
+        project_id: id,
+      },
+    }
+  );
+
+  console.log(resp);
+  console.log(resp.status === 200);
+  if (resp.status === 200) {
+    const columnIdx = app.columnList.value.findIndex((item) => {
+      return item.id === id;
+    });
+
+    app.columnList.value.splice(columnIdx, 1);
+  }
+};
 </script>
 
 <style scoped>
+.column {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icon {
+  display: block;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
 .column-title {
   margin-bottom: 15px;
 }
@@ -89,9 +163,16 @@ const addCard = (card) => {
 .card {
   margin-bottom: 15px;
   padding: 3px 7px;
+  position: relative;
   color: #5d5a88;
   background-color: #d4d2e3;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.card-icon {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
 }
 </style>

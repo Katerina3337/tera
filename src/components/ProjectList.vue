@@ -8,11 +8,16 @@
         class="list-item"
         :class="{ active: isActive(project.id) }"
       >
-        {{ project.name }} |id: {{ project.id }}|
-        <font-awesome-icon
-          @click="deleteProject(project.id)"
-          icon="fa-solid fa-trash"
-        />
+        <div class="project">
+          {{ project.name }} |id: {{ project.id }}|
+          <div class="delete" @click="deleteProject(project.id)">
+            <font-awesome-icon
+              icon="fa-solid fa-trash"
+              title="Удалить проект"
+              class="icon"
+            />
+          </div>
+        </div>
       </li>
     </ul>
 
@@ -96,13 +101,31 @@ const deleteProject = async (id) => {
 }
 .list-item {
   margin-right: 20px;
-  padding: 10px 15px;
+  padding: 10px;
   font-size: 15px;
   color: #ffffff;
   background-color: #5d5a88;
   border-radius: 8px;
   cursor: pointer;
 }
+
+.project {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete {
+  margin-left: 10px;
+  padding: 7px 10px;
+  background-color: #a4a2c4;
+  border-radius: 5px;
+}
+
+.icon {
+  margin: 0;
+}
+
 .active {
   color: #5d5a88;
   background-color: #d4d2e3;
