@@ -4,7 +4,7 @@ import jwtParser from "../lib/jwtParser";
 
 export default defineStore("auth", () => {
   const token = ref(null);
-  const user = computed(() => jwtParser(token.value));
+  const user = computed(() => (token.value ? jwtParser(token.value) : null));
 
   const setToken = (t) => {
     token.value = t;

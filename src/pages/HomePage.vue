@@ -3,7 +3,7 @@
     <h1 class="title">teraBoard</h1>
     <div class="navbar">
       <project-list />
-      <div class="logout">
+      <div @click="logout" v-if="auth.user" class="logout">
         {{ auth.user.login }}
         <font-awesome-icon
           icon="fa-solid fa-arrow-right-from-bracket"
@@ -16,15 +16,18 @@
 </template>
 
 <script setup>
+import { useRouter } from "vue-router";
 import ProjectList from "@/components/ProjectList.vue";
 
 import ColumnList from "@/components/ColumnList.vue";
 
 import useAuthStore from "@/stores/auth";
 
+const router = useRouter();
 const auth = useAuthStore();
 const logout = () => {
   auth.logout();
+  router.push("/sign-in");
 };
 </script>
 
