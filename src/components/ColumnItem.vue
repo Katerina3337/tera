@@ -23,6 +23,7 @@
           icon="fa-solid fa-trash"
           title="Удалить задачу"
           class="card-icon"
+          @click.stop="createModal"
         />
       </li>
     </ul>
