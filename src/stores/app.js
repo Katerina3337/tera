@@ -24,6 +24,10 @@ export default defineStore("app", () => {
     columnList.value = resp.data;
   };
 
+  const deactivateProject = () => {
+    activeProject.value = null;
+  };
+
   const addColumn = (column) => {
     if (!columnList.value) columnList.value = [column];
     else columnList.value.push(column);
@@ -33,6 +37,7 @@ export default defineStore("app", () => {
     activeProject,
     columnList,
     setActiveProject,
+    deactivateProject,
     addColumn,
   };
 });

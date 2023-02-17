@@ -3,7 +3,7 @@
     <div class="column">
       <h3 class="column-title">{{ column.name }} |id: {{ column.id }}|</h3>
       <font-awesome-icon
-        @click="deleteColumn(card.id)"
+        @click="deleteColumn(column.id)"
         icon="fa-solid fa-trash"
         title="Удалить колонку"
         class="icon"
@@ -117,25 +117,23 @@ const deleteCard = async (id) => {
 
 const deleteColumn = async (id) => {
   const resp = await axios.delete(
-    `http://localhost:3001/projects/delete-column/${id}`,
+    `http://localhost:3001/columns/delete-column/${id}`,
     {
       headers: {
         Authorization: auth.token,
-      },
-      data: {
-        project_id: id,
       },
     }
   );
 
   console.log(resp);
   console.log(resp.status === 200);
+  console.log(app.columnList);
   if (resp.status === 200) {
-    const columnIdx = app.columnList.value.findIndex((item) => {
+    const columnIdx = app.columnList.findIndex((item) => {
       return item.id === id;
     });
 
-    app.columnList.value.splice(columnIdx, 1);
+    app.columnList.splice(columnIdx, 1);
   }
 };
 </script>

@@ -72,6 +72,8 @@ const deleteProject = async (id) => {
   console.log(resp);
   console.log(resp.status === 200);
   if (resp.status === 200) {
+    app.deactivateProject();
+    app.columnList.splice(0, app.columnList.length);
     const projectIdx = projectList.value.findIndex((item) => {
       return item.id === id;
     });
