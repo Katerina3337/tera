@@ -8,9 +8,11 @@ export default defineStore("auth", () => {
 
   const setToken = (t) => {
     token.value = t;
+    localStorage.setItem("token", t);
   };
 
   const logout = () => {
+    localStorage.removeItem("token");
     token.value = null;
   };
 
