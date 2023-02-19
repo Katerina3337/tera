@@ -26,13 +26,14 @@
 </template>
 
 <script setup>
-import { ref, defineProps } from "vue";
+import { ref, defineProps, defineEmits } from "vue";
 import axios from "axios";
 import useAuthStore from "@/stores/auth";
 
 const auth = useAuthStore();
 
 const props = defineProps(["card", "colName"]);
+const emits = defineEmits(["updateCard"]);
 const editedSummery = ref(props.card.summery);
 const editedDescription = ref(props.card.description);
 
@@ -51,6 +52,9 @@ const updateCard = async () => {
     }
   );
   console.log(resp);
+  if (resp.status === 200) {
+    emits("updateCard", resp.data.card);
+  }
 };
 </script>
 

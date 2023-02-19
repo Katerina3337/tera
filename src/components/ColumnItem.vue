@@ -35,7 +35,11 @@
       @mClose="closeModal"
     >
       <template v-slot:modal-body>
-        <card-edit :card="cardEdited" :col-name="cardEditedColName" />
+        <card-edit
+          :card="cardEdited"
+          :col-name="cardEditedColName"
+          @update-card="updateCard"
+        />
       </template>
     </tr-modal>
     <create-card :column-id="column.id" @card-created="addCard" />
@@ -61,21 +65,6 @@ const createModal = ref(false);
 const cardEdited = ref(null);
 const cardEditedColName = ref("");
 
-const openModal = () => {
-  createModal.value = true;
-};
-const closeModal = () => {
-  createModal.value = false;
-};
-
-const editCard = (card, columnName) => {
-  openModal();
-  cardEdited.value = card;
-  cardEditedColName.value = columnName;
-};
-
-const props = defineProps(["column"]);
-
 onMounted(async () => {
   if (!props.column.id) return;
 
@@ -90,6 +79,29 @@ onMounted(async () => {
 
   cardList.value = resp.data;
 });
+const openModal = () => {
+  createModal.value = true;
+};
+const closeModal = () => {
+  createModal.value = false;
+};
+
+const editCard = (card, columnName) => {
+  openModal();
+  cardEdited.value = card;
+  cardEditedColName.value = columnName;
+};
+
+const updateCard = (upCard) => {
+  const updatedCard = cardList.value.find((item) => {
+    return item.id === upCard.id;
+  });
+  updatedCard.summery = upCard.summery;
+  updatedCard.description = upCard.description;
+  closeModal();
+};
+
+const props = defineProps(["column"]);
 
 const addCard = (card) => {
   cardList.value.push(card);
