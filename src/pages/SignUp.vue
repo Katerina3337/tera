@@ -16,6 +16,7 @@
         @submitInput="signUp"
       />
       <button @click="signUp" class="submit">Зарегистрироваться</button>
+      <RouterLink to="/sign-in" class="sign-link">Войти</RouterLink>
     </div>
   </div>
 </template>
@@ -26,11 +27,11 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import TrInput from "@/components/kit/TrInput.vue";
 
+const router = useRouter();
+
 const name = ref("");
 const login = ref("");
 const password = ref("");
-
-const router = useRouter();
 
 const signUp = async () => {
   const response = await axios.post("http://localhost:3001/auth/signup", {
