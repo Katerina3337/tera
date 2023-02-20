@@ -1,6 +1,4 @@
 <template>
-  <header></header>
-
   <RouterView />
 </template>
 
@@ -13,10 +11,6 @@ import useAuthStore from "@/stores/auth";
 const auth = useAuthStore();
 
 onMounted(() => {
-  const lsToken = localStorage.getItem("token");
-  if (lsToken) {
-    auth.setToken(lsToken);
-    // auth.token = lsToken;
-  }
+  auth.initAuth();
 });
 </script>

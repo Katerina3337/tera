@@ -1,28 +1,19 @@
 <template>
   <div>
     <div class="sign-form">
-      <input
+      <tr-input
         v-model="name"
-        type="text"
         placeholder="Имя пользователя"
-        class="input"
-        @keydown="enterSubmit($event, signUp)"
+        @submitInput="signUp"
       />
 
-      <input
-        v-model="login"
-        type="text"
-        placeholder="Логин"
-        class="input"
-        @keydown="enterSubmit($event, signUp)"
-      />
+      <tr-input v-model="login" placeholder="Логин" @submitInput="signUp" />
 
-      <input
+      <tr-input
         v-model="password"
-        type="text"
+        :isPassword="true"
         placeholder="Пароль"
-        class="input"
-        @keydown="enterSubmit($event, signUp)"
+        @submitInput="signUp"
       />
       <button @click="signUp" class="submit">Зарегистрироваться</button>
     </div>
@@ -30,11 +21,10 @@
 </template>
 
 <script setup>
+import axios from "axios";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-
-import enterSubmit from "@/lib/enterSubmit";
-import axios from "axios";
+import TrInput from "@/components/kit/TrInput.vue";
 
 const name = ref("");
 const login = ref("");
@@ -48,6 +38,9 @@ const signUp = async () => {
     login: login.value,
     password: password.value,
   });
+
+  // todo Исправить краш скрипта при ответе сервера с ошибкой
+
   name.value = "";
   login.value = "";
   password.value = "";
@@ -58,9 +51,6 @@ const signUp = async () => {
 </script>
 
 <style scoped>
-.input {
-  margin-bottom: 20px;
-}
 .submit {
   margin-bottom: 0;
 }

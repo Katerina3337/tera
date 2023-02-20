@@ -11,10 +11,17 @@ export default defineStore("auth", () => {
     localStorage.setItem("token", t);
   };
 
+  const initAuth = () => {
+    const lsToken = localStorage.getItem("token");
+    if (lsToken) {
+      token.value = lsToken;
+    }
+  };
+
   const logout = () => {
     localStorage.removeItem("token");
     token.value = null;
   };
 
-  return { token, user, setToken, logout };
+  return { token, user, setToken, initAuth, logout };
 });

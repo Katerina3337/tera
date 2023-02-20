@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import { createPinia } from "pinia";
 import App from "./App.vue";
 import router from "./router";
+import "./assets/main.css";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
@@ -18,8 +19,6 @@ library.add(
   faArrowRightFromBracket,
   faTrash
 );
-
-import "./assets/main.css";
 
 const app = createApp(App);
 
