@@ -10,7 +10,7 @@
         @submitInput="signIn"
       />
       <button @click="signIn" class="submit sign-in__button">Войти</button>
-      <RouterLink to="/sign-up" class="submit sign-up__button"
+      <RouterLink to="/sign-up" class="sign-link"
         >Зарегистрироваться</RouterLink
       >
     </div>
@@ -55,14 +55,5 @@ const signIn = async () => {
 }
 .sign-in__button {
   margin-top: 25px;
-}
-.sign-up__button {
-  margin: 10px 0 0 0;
-  display: flex;
-  align-items: center;
-  color: #5d5a88;
-  background-color: #d4d2e3;
-  border: 1px solid #5d5a88;
-  text-decoration: none;
 }
 </style>
