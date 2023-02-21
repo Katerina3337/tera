@@ -34,7 +34,7 @@ const login = ref("");
 const password = ref("");
 
 const signUp = async () => {
-  const response = await axios.post("http://localhost:3001/auth/signup", {
+  await axios.post("http://localhost:3001/auth/signup", {
     name: name.value,
     login: login.value,
     password: password.value,
@@ -45,7 +45,6 @@ const signUp = async () => {
   name.value = "";
   login.value = "";
   password.value = "";
-  console.log(response.data.message);
 
   router.push("/sign-in");
 };

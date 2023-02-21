@@ -9,7 +9,7 @@
         :class="{ active: isActive(project.id) }"
       >
         <div class="project">
-          {{ project.name }} |id: {{ project.id }}|
+          {{ project.name }}
           <div class="delete" @click="deleteProject(project.id)">
             <font-awesome-icon
               icon="fa-solid fa-trash"
@@ -69,8 +69,6 @@ const deleteProject = async (id) => {
     }
   );
 
-  console.log(resp);
-  console.log(resp.status === 200);
   if (resp.status === 200) {
     app.deactivateProject();
     app.columnList.splice(0, app.columnList.length);

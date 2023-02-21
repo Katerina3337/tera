@@ -80,7 +80,7 @@ const createCard = async () => {
       },
     }
   );
-  console.log(resp.data.message);
+
   if (resp.data.card) {
     emit("cardCreated", resp.data.card);
     cardName.value = "";

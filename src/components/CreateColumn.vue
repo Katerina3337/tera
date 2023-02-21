@@ -58,8 +58,6 @@ const createColumn = async () => {
     }
   );
 
-  console.log(resp.data.message);
-
   if (resp.data.column) {
     app.addColumn(resp.data.column);
     createModal.value = false;

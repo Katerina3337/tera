@@ -51,7 +51,7 @@ const updateCard = async () => {
       },
     }
   );
-  console.log(resp);
+
   if (resp.status === 200) {
     emits("updateCard", resp.data.card);
   }

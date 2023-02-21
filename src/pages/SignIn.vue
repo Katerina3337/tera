@@ -39,7 +39,6 @@ const signIn = async () => {
 
   // todo Исправить краш скрипта при ответе сервера с ошибкой
 
-  console.log(response.data);
   if (response.data.message === "Auth successful") {
     auth.setToken(response.data.token);
     login.value = "";

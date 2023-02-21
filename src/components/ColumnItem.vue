@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="column">
-      <h3 class="column-title">{{ column.name }} |id: {{ column.id }}|</h3>
+      <h3 class="column-title">{{ column.name }}</h3>
       <font-awesome-icon
         @click="deleteColumn(column.id)"
         icon="fa-solid fa-trash"
@@ -117,8 +117,6 @@ const deleteCard = async (id) => {
     }
   );
 
-  console.log(resp);
-  console.log(resp.status === 200);
   if (resp.status === 200) {
     const cardIdx = cardList.value.findIndex((item) => {
       return item.id === id;
@@ -138,9 +136,6 @@ const deleteColumn = async (id) => {
     }
   );
 
-  console.log(resp);
-  console.log(resp.status === 200);
-  console.log(app.columnList);
   if (resp.status === 200) {
     const columnIdx = app.columnList.findIndex((item) => {
       return item.id === id;
