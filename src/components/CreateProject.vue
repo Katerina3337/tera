@@ -1,69 +1,54 @@
 <template>
-  <div>
-    <div class="controls">
-      <button @click="openModal" class="project-button">
-        Создать проект<font-awesome-icon icon="fa-solid fa-plus" class="icon" />
-      </button>
-      <button @click="openModal" class="project-button">
-        Участники проекта<font-awesome-icon
-          icon="fa-solid fa-arrow-down"
-          class="icon"
-        />
-      </button>
-      <button @click="openModal" class="project-button">
-        Добавить участника<font-awesome-icon
-          icon="fa-solid fa-plus"
-          class="icon"
-        />
-      </button>
-    </div>
-    <tr-modal
-      btnText="Создать проект"
-      :isOpened="createModal"
-      @mSubmit="createProject"
-      @mClose="closeModal"
-    >
-      <template v-slot:modal-body>
-        <input
-          v-model="projectName"
-          type="text"
-          placeholder="Введите название проекта"
-          class="input"
-          @keydown="enterSubmit($event, createProject)"
-        />
-      </template>
-    </tr-modal>
+  <div class="controls">
+    <button @click="openModal" class="project-button">
+      Создать проект<font-awesome-icon icon="fa-solid fa-plus" class="icon" />
+    </button>
+    <button @click="openModal" class="project-button">
+      Участники проекта<font-awesome-icon
+        icon="fa-solid fa-arrow-down"
+        class="icon"
+      />
+    </button>
+    <button @click="openModal" class="project-button">
+      Добавить участника<font-awesome-icon
+        icon="fa-solid fa-plus"
+        class="icon"
+      />
+    </button>
   </div>
+  <tr-modal
+    btnText="Создать проект"
+    :isOpened="createModal"
+    @mSubmit="createProject"
+    @mClose="closeModal"
+  >
+    <template v-slot:modal-body>
+      <tr-input
+        v-model="projectName"
+        placeholder="Введите название проекта"
+        @submitInput="createProject"
+      />
+    </template>
+  </tr-modal>
 </template>
 
 <script setup>
 import { ref, defineEmits } from "vue";
+import { postCreateProject } from "@/api/api";
 
-import enterSubmit from "@/lib/enterSubmit";
 import TrModal from "@/components/kit/TrModal.vue";
+import TrInput from "@/components/kit/TrInput.vue";
 
-import axios from "axios";
 import useAuthStore from "@/stores/auth";
+const auth = useAuthStore();
 
 const projectName = ref("");
-const auth = useAuthStore();
+const createModal = ref(false);
 
 const emit = defineEmits(["projectCreated"]);
 
-const createModal = ref(false);
-
 const createProject = async () => {
-  const resp = await axios.post(
-    "http://localhost:3001/projects/create-project",
-    {
-      name: projectName.value,
-    },
-    {
-      headers: {
-        Authorization: auth.token,
-      },
-    }
-  );
+  const resp = await postCreateProject(projectName.value, auth.token);
 
   if (resp.data.project) {
     emit("projectCreated", resp.data.project);

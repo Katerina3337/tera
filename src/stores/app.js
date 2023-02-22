@@ -26,6 +26,7 @@ export default defineStore("app", () => {
 
   const deactivateProject = () => {
     activeProject.value = null;
+    columnList.value = [];
   };
 
   const addColumn = (column) => {

@@ -25,12 +25,11 @@
 
 <script setup>
 import { ref } from "vue";
+import { postCreateColumn } from "@/api/api";
 
 import enterSubmit from "@/lib/enterSubmit";
 
 import TrModal from "@/components/kit/TrModal.vue";
-
-import axios from "axios";
 
 import useAuthStore from "@/stores/auth";
 import useAppStore from "@/stores/app";
@@ -44,19 +43,13 @@ const createModal = ref(false);
 const createColumn = async () => {
   if (!app.activeProject) return;
 
-  const resp = await axios.post(
-    "http://localhost:3001/columns/create-column",
-    {
-      name: columnName.value,
-      position: 0,
-      project_id: app.activeProject,
-    },
-    {
-      headers: {
-        Authorization: auth.token,
-      },
-    }
+  const resp = await postCreateColumn(
+    columnName.value,
+    app.activeProject,
+    auth.token
   );
+
+  console.log(resp);
 
   if (resp.data.column) {
     app.addColumn(resp.data.column);

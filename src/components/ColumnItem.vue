@@ -1,54 +1,51 @@
 <template>
-  <div>
-    <div class="column">
-      <h3 class="column-title">{{ column.name }}</h3>
-      <font-awesome-icon
-        @click="deleteColumn(column.id)"
-        icon="fa-solid fa-trash"
-        title="Удалить колонку"
-        class="icon"
-      />
-    </div>
-    <ul v-if="cardList && cardList.length" class="cards">
-      <li
-        v-for="card in cardList"
-        :key="card.id"
-        @click="editCard(card, column.name)"
-        class="card"
-      >
-        {{ card.name }} <br />
-        {{ card.summery }}
-        <font-awesome-icon
-          @click="deleteCard(card.id)"
-          icon="fa-solid fa-trash"
-          title="Удалить задачу"
-          class="card-icon"
-          @click.stop="createModal"
-        />
-      </li>
-    </ul>
-    <tr-modal
-      :hide-submit="true"
-      btnText="Добавить задачу"
-      :isOpened="createModal"
-      :modalWidth="1000"
-      @mClose="closeModal"
-    >
-      <template v-slot:modal-body>
-        <card-edit
-          :card="cardEdited"
-          :col-name="cardEditedColName"
-          @update-card="updateCard"
-        />
-      </template>
-    </tr-modal>
-    <create-card :column-id="column.id" @card-created="addCard" />
+  <div class="column">
+    <h3 class="column-title">{{ column.name }}</h3>
+    <font-awesome-icon
+      @click="removeColumn(column.id)"
+      icon="fa-solid fa-trash"
+      title="Удалить колонку"
+      class="icon"
+    />
   </div>
+  <ul v-if="cardList && cardList.length" class="cards">
+    <li
+      v-for="card in cardList"
+      :key="card.id"
+      @click="editCard(card, column.name)"
+      class="card"
+    >
+      {{ card.name }} <br />
+      {{ card.summery }}
+      <font-awesome-icon
+        @click.stop="removeCard(card.id)"
+        icon="fa-solid fa-trash"
+        title="Удалить задачу"
+        class="card-icon"
+      />
+    </li>
+  </ul>
+  <tr-modal
+    :hide-submit="true"
+    btnText="Добавить задачу"
+    :isOpened="createModal"
+    :modalWidth="1000"
+    @mClose="closeModal"
+  >
+    <template v-slot:modal-body>
+      <card-edit
+        :card="cardEdited"
+        :col-name="cardEditedColName"
+        @update-card="updateCard"
+      />
+    </template>
+  </tr-modal>
+  <create-card :column-id="column.id" @card-created="addCard" />
 </template>
 
 <script setup>
 import { defineProps, onMounted, ref } from "vue";
-import axios from "axios";
+import { getCardList, deleteColumn, deleteCard } from "@/api/api";
 import CreateCard from "@/components/CreateCard.vue";
 import TrModal from "@/components/kit/TrModal.vue";
 import CardEdit from "@/components/CardEdit.vue";
@@ -57,10 +54,9 @@ import useAppStore from "@/stores/app";
 const app = useAppStore();
 
 import useAuthStore from "@/stores/auth";
-
 const auth = useAuthStore();
-const cardList = ref(null);
 
+const cardList = ref(null);
 const createModal = ref(false);
 const cardEdited = ref(null);
 const cardEditedColName = ref("");
@@ -68,14 +64,7 @@ const cardEditedColName = ref("");
 onMounted(async () => {
   if (!props.column.id) return;
 
-  const resp = await axios.get(
-    `http://localhost:3001/card/get-column-cards/${props.column.id}`,
-    {
-      headers: {
-        Authorization: auth.token,
-      },
-    }
-  );
+  const resp = await getCardList(props.column.id, auth.token);
 
   cardList.value = resp.data;
 });
@@ -107,15 +96,8 @@ const addCard = (card) => {
   cardList.value.push(card);
 };
 
-const deleteCard = async (id) => {
-  const resp = await axios.delete(
-    `http://localhost:3001/card/delete-card/${id}`,
-    {
-      headers: {
-        Authorization: auth.token,
-      },
-    }
-  );
+const removeCard = async (id) => {
+  const resp = await deleteCard(id, auth.token);
 
   if (resp.status === 200) {
     const cardIdx = cardList.value.findIndex((item) => {
@@ -126,15 +108,8 @@ const deleteCard = async (id) => {
   }
 };
 
-const deleteColumn = async (id) => {
-  const resp = await axios.delete(
-    `http://localhost:3001/columns/delete-column/${id}`,
-    {
-      headers: {
-        Authorization: auth.token,
-      },
-    }
-  );
+const removeColumn = async (id) => {
+  const resp = await deleteColumn(id, auth.token);
 
   if (resp.status === 200) {
     const columnIdx = app.columnList.findIndex((item) => {

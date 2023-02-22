@@ -1,22 +1,21 @@
 <template>
-  <div class="project-list">
-    <ul class="list">
+  <div class="projects">
+    <ul class="project-list">
       <li
         v-for="project in projectList"
         @click="app.setActiveProject(project.id)"
         :key="project.id"
-        class="list-item"
+        class="project-item"
         :class="{ active: isActive(project.id) }"
       >
         <div class="project">
           {{ project.name }}
-          <div class="delete" @click="deleteProject(project.id)">
-            <font-awesome-icon
-              icon="fa-solid fa-trash"
-              title="Удалить проект"
-              class="icon"
-            />
-          </div>
+          <font-awesome-icon
+            @click.stop="deleteProject(project.id)"
+            icon="fa-solid fa-trash"
+            title="Удалить проект"
+            class="icon"
+          />
         </div>
       </li>
     </ul>
@@ -27,7 +26,7 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import axios from "axios";
+import { deleteDeleteProject, getProjectList } from "@/api/api";
 import CreateProject from "@/components/CreateProject.vue";
 
 import useAppStore from "@/stores/app";
@@ -38,40 +37,25 @@ const auth = useAuthStore();
 
 const projectList = ref(null);
 
+onMounted(async () => {
+  const resp = await getProjectList(auth.token);
+  projectList.value = resp.data;
+});
+
 const isActive = (projectId) => {
   return app.activeProject === projectId;
 };
-
-onMounted(async () => {
-  const resp = await axios.get("http://localhost:3001/projects/get-all", {
-    headers: {
-      Authorization: auth.token,
-    },
-  });
-
-  projectList.value = resp.data;
-});
 
 const addProject = (project) => {
   projectList.value.push(project);
 };
 
 const deleteProject = async (id) => {
-  const resp = await axios.delete(
-    "http://localhost:3001/projects/delete-project",
-    {
-      headers: {
-        Authorization: auth.token,
-      },
-      data: {
-        project_id: id,
-      },
-    }
-  );
+  const resp = await deleteDeleteProject(id, auth.token);
 
   if (resp.status === 200) {
     app.deactivateProject();
-    app.columnList.splice(0, app.columnList.length);
+
     const projectIdx = projectList.value.findIndex((item) => {
       return item.id === id;
     });
@@ -82,7 +66,7 @@ const deleteProject = async (id) => {
 </script>
 
 <style scoped>
-.project-list {
+.projects {
   width: 90%;
   display: flex;
   justify-content: space-between;
@@ -92,14 +76,14 @@ const deleteProject = async (id) => {
   background-color: #a4a2c4;
   border-radius: 8px;
 }
-.list {
+.project-list {
   display: flex;
   padding: 0;
   border-radius: 8px;
   cursor: pointer;
   list-style: none;
 }
-.list-item {
+.project-item {
   margin-right: 20px;
   padding: 10px;
   font-size: 15px;
@@ -115,15 +99,13 @@ const deleteProject = async (id) => {
   align-items: center;
 }
 
-.delete {
-  margin-left: 10px;
-  padding: 7px 10px;
-  background-color: #a4a2c4;
-  border-radius: 5px;
+.project:hover .icon {
+  opacity: 1;
 }
 
 .icon {
-  margin: 0;
+  opacity: 0;
+  margin-left: 15px;
 }
 
 .active {

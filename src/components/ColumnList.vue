@@ -1,6 +1,6 @@
 <template>
-  <div class="column-list">
-    <ul v-if="app.columnList?.length" style="display: flex" class="list">
+  <div class="columns">
+    <ul v-if="app.columnList?.length" class="column-list">
       <li v-for="column in app.columnList" :key="column.id" class="column-item">
         <column-item :column="column" />
       </li>
@@ -18,7 +18,7 @@ const app = useAppStore();
 </script>
 
 <style scoped>
-.column-list {
+.columns {
   display: flex;
   justify-content: start;
   align-items: flex-start;
@@ -27,7 +27,8 @@ const app = useAppStore();
   background-color: #a4a2c4;
   border-radius: 8px;
 }
-.list {
+.column-list {
+  display: flex;
   padding: 0;
   list-style: none;
 }
