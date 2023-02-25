@@ -12,12 +12,10 @@
     @mClose="closeModal"
   >
     <template v-slot:modal-body>
-      <input
+      <tr-input
         v-model="columnName"
-        type="text"
         placeholder="Введите название колонки"
-        class="input"
-        @keydown="enterSubmit($event, createColumn)"
+        @submitInput="createColumn"
       />
     </template>
   </tr-modal>
@@ -27,9 +25,8 @@
 import { ref } from "vue";
 import { postCreateColumn } from "@/api/api";
 
-import enterSubmit from "@/lib/enterSubmit";
-
 import TrModal from "@/components/kit/TrModal.vue";
+import TrInput from "@/components/kit/TrInput.vue";
 
 import useAuthStore from "@/stores/auth";
 import useAppStore from "@/stores/app";

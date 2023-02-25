@@ -1,51 +1,46 @@
 <template>
-  <div>
-    <button @click="openModal" class="create-card">Добавить задачу</button>
-    <tr-modal
-      btnText="Добавить задачу"
-      :isOpened="createModal"
-      @mSubmit="createCard"
-      @mClose="closeModal"
-    >
-      <template v-slot:modal-body>
-        <input
-          v-model="cardName"
-          placeholder="Название"
-          type="text"
-          class="input"
-          @keydown="enterSubmit($event, createCard)"
-        />
-        <br />
-        <input
-          v-model="summery"
-          placeholder="Краткое описание"
-          type="text"
-          class="input"
-          @keydown="enterSubmit($event, createCard)"
-        />
-        <br />
-        <textarea
-          v-model="description"
-          placeholder="Описание"
-          class="textarea"
-          @keydown="enterSubmit($event, createCard)"
-        />
-        <br />
-      </template>
-    </tr-modal>
-  </div>
+  <button @click="openModal" class="create-card">Добавить задачу</button>
+  <tr-modal
+    btnText="Добавить задачу"
+    :isOpened="createModal"
+    @mSubmit="createCard"
+    @mClose="closeModal"
+  >
+    <template v-slot:modal-body>
+      <tr-input
+        v-model="cardName"
+        placeholder="Название"
+        @submitInput="createCard"
+      />
+      <br />
+      <tr-input
+        v-model="summery"
+        placeholder="Краткое описание"
+        @submitInput="createCard"
+      />
+      <br />
+      <textarea
+        v-model="description"
+        placeholder="Описание"
+        class="textarea"
+        @keydown="enterSubmit($event, createCard)"
+      />
+      <br />
+    </template>
+  </tr-modal>
 </template>
 
 <script setup>
+import axios from "axios";
 import { ref, defineProps } from "vue";
-
 import enterSubmit from "@/lib/enterSubmit";
 import TrModal from "@/components/kit/TrModal.vue";
-import axios from "axios";
+import TrInput from "@/components/kit/TrInput.vue";
 
 import useAuthStore from "@/stores/auth";
 
 const auth = useAuthStore();
+
 const props = defineProps(["columnId"]);
 const emit = defineEmits(["cardCreated"]);
 
