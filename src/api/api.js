@@ -1,4 +1,11 @@
 import axios from "axios";
+import { toast } from "vue3-toastify";
+
+axios.interceptors.response.use(null, (error) => {
+  if (error.response.data) {
+    toast(error.response.data);
+  }
+});
 
 export const postCreateProject = async (projectName, token) => {
   return await axios.post(
