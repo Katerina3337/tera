@@ -33,6 +33,7 @@ const app = useAppStore();
   list-style: none;
 }
 .column-item {
+  width: 200px;
   height: 100%;
   min-height: 100%;
   margin-right: 15px;

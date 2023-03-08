@@ -15,8 +15,8 @@
       @click="editCard(card, column.name)"
       class="card"
     >
-      {{ card.name }} <br />
-      {{ card.summery }}
+      <div class="card_name">{{ card.name }}</div>
+      <div class="card_summary">{{ card.summery }}</div>
       <font-awesome-icon
         @click.stop="removeCard(card.id)"
         icon="fa-solid fa-trash"
@@ -123,7 +123,6 @@ const removeColumn = async (id) => {
 
 <style scoped>
 .column {
-  min-width: 200px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -152,9 +151,19 @@ const removeColumn = async (id) => {
   cursor: pointer;
 }
 
+.card_name {
+  font-weight: bold;
+}
+
+.card_summary {
+  margin-right: 3px;
+}
+
 .card-icon {
+  display: inline-block;
   position: absolute;
   right: 5px;
   bottom: 5px;
+  margin-left: 5px;
 }
 </style>
