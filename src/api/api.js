@@ -1,11 +1,36 @@
 import axios from "axios";
 import { toast } from "vue3-toastify";
 
-axios.interceptors.response.use(null, (error) => {
-  if (error.response.data) {
-    toast(error.response.data);
+axios.interceptors.response.use(
+  (response) => {
+    if (response.status === 200 && response.data.message) {
+      toast.success(response.data.message);
+    }
+    return response;
+  },
+  (error) => {
+    if (error.response.data.message) {
+      toast.error(error.response.data.message);
+    } else {
+      toast("Неизвестная ошибка");
+    }
   }
-});
+);
+
+export const postSignUp = async (name, login, password) => {
+  return await axios.post("http://localhost:3001/auth/signup", {
+    name: name,
+    login: login,
+    password: password,
+  });
+};
+
+export const postSignIn = async (login, password) => {
+  return await axios.post("http://localhost:3001/auth/login", {
+    login: login,
+    password: password,
+  });
+};
 
 export const postCreateProject = async (projectName, token) => {
   return await axios.post(

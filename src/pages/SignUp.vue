@@ -22,9 +22,9 @@
 </template>
 
 <script setup>
-import axios from "axios";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { postSignUp } from "@/api/api";
 import TrInput from "@/components/kit/TrInput.vue";
 
 const router = useRouter();
@@ -34,12 +34,7 @@ const login = ref("");
 const password = ref("");
 
 const signUp = async () => {
-  await axios.post("http://localhost:3001/auth/signup", {
-    name: name.value,
-    login: login.value,
-    password: password.value,
-  });
-
+  await postSignUp(name.value, login.value, password.value);
   // todo Исправить краш скрипта при ответе сервера с ошибкой
 
   name.value = "";

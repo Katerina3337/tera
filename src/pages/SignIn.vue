@@ -18,8 +18,8 @@
 </template>
 
 <script setup>
-import axios from "axios";
 import { ref } from "vue";
+import { postSignIn } from "@/api/api";
 import TrInput from "@/components/kit/TrInput.vue";
 
 import { useRouter } from "vue-router";
@@ -32,10 +32,7 @@ const login = ref("");
 const password = ref("");
 
 const signIn = async () => {
-  const response = await axios.post("http://localhost:3001/auth/login", {
-    login: login.value,
-    password: password.value,
-  });
+  const response = await postSignIn(login.value, password.value);
 
   // todo Исправить краш скрипта при ответе сервера с ошибкой
 
