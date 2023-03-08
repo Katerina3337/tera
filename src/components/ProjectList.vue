@@ -84,6 +84,7 @@ const deleteProject = async (id) => {
   list-style: none;
 }
 .project-item {
+  min-width: 100px;
   margin-right: 20px;
   padding: 10px;
   font-size: 15px;

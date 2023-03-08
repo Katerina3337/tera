@@ -123,6 +123,7 @@ const removeColumn = async (id) => {
 
 <style scoped>
 .column {
+  min-width: 200px;
   display: flex;
   justify-content: space-between;
   align-items: center;

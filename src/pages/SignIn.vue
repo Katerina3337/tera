@@ -46,10 +46,13 @@ const signIn = async () => {
 </script>
 
 <style scoped>
+.input {
+  margin-bottom: 20px;
+}
 .submit {
   margin-top: 0;
 }
 .sign-in__button {
-  margin-top: 25px;
+  margin-top: 15px;
 }
 </style>

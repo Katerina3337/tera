@@ -58,7 +58,7 @@ const modalSubmit = (e) => {
   justify-content: center;
   align-items: center;
   margin-top: 100px;
-  padding: 55px 50px 10px 50px;
+  padding: 55px 50px 25px 50px;
   width: 100%;
   max-width: 500px;
   position: relative;
