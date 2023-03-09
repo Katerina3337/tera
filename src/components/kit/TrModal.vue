@@ -52,6 +52,11 @@ const modalSubmit = (e) => {
   opacity: 0.9;
   z-index: 1;
 }
+
+.modal-edit .modal {
+  padding-top: 35px;
+}
+
 .modal {
   display: flex;
   flex-direction: column;

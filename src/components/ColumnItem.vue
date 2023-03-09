@@ -31,6 +31,7 @@
     :isOpened="createModal"
     :modalWidth="1000"
     @mClose="closeModal"
+    class="modal-edit"
   >
     <template v-slot:modal-body>
       <card-edit
@@ -137,6 +138,7 @@ const removeColumn = async (id) => {
 .column-title {
   margin-bottom: 15px;
 }
+
 .cards {
   padding: 0;
   list-style: none;
