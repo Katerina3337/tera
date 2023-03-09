@@ -2,7 +2,17 @@
   <div>
     <div class="navigation">
       <div class="controls">
-        <div class="column-name">{{ colName }}</div>
+        <div class="column-name">
+          <tr-select
+            id="select_column"
+            :options="app.columnList"
+            :selectOpened="isOpened"
+            :selectedOption="chosenOption"
+            @toggleSel="openSelect"
+            @selectOpt="chooseOption"
+          >
+          </tr-select>
+        </div>
         <div class="card-name">{{ card.name }}</div>
       </div>
       <div @click="updateCard" class="submit-button">Сохранить</div>
@@ -28,14 +38,30 @@
 <script setup>
 import { ref, defineProps, defineEmits } from "vue";
 import { postUpdateCard } from "@/api/api";
+import TrSelect from "@/components/kit/TrSelect.vue";
 import useAuthStore from "@/stores/auth";
+import useAppStore from "@/stores/app";
 
 const auth = useAuthStore();
+const app = useAppStore();
 
 const props = defineProps(["card", "colName"]);
 const emits = defineEmits(["updateCard"]);
 const editedSummery = ref(props.card.summery);
 const editedDescription = ref(props.card.description);
+
+const chosenOption = ref(null);
+const isOpened = ref(false);
+
+const openSelect = () => {
+  isOpened.value = !isOpened.value;
+  console.log(isOpened.value);
+};
+
+const chooseOption = (opt) => {
+  chosenOption.value = opt;
+  console.log(opt);
+};
 
 const updateCard = async () => {
   const resp = await postUpdateCard(
@@ -65,6 +91,7 @@ const updateCard = async () => {
 .submit-button {
   display: flex;
   align-items: center;
+  position: relative;
   padding: 10px 15px;
   font-size: 15px;
   color: #ffffff;
@@ -72,6 +99,18 @@ const updateCard = async () => {
   border: none;
   border-radius: 8px;
   cursor: pointer;
+}
+
+.column-name {
+  min-width: 85px;
+}
+
+.select_column option {
+  background-color: #a4a2c4;
+}
+
+.select_column option:hover {
+  background-color: #5d5a88;
 }
 
 .card-name {
