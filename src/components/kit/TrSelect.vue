@@ -1,6 +1,6 @@
 <template>
   <div @click="toggleSelect" class="select">
-    <div class="select__selected-option">{{ selectedOption?.name }}</div>
+    <div class="select__selected-option">{{ modelValue?.name }}</div>
     <div v-if="selectOpened" class="select__dropdown">
       <div
         v-for="option in options"
@@ -20,13 +20,11 @@ defineProps(["options", "modelValue"]);
 const emit = defineEmits(["update:modelValue"]);
 
 const selectOpened = ref(false);
-const selectedOption = ref(null);
 
 const toggleSelect = () => {
   selectOpened.value = !selectOpened.value;
 };
 const selectOption = (o) => {
-  selectedOption.value = o;
   emit("update:modelValue", o);
 };
 </script>

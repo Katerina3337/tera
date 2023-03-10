@@ -6,9 +6,6 @@
       <tr-profile />
     </div>
     <column-list />
-    <tr-select
-      :options="[{ name: 'a' }, { name: 'b' }, { name: 'c' }]"
-    ></tr-select>
   </div>
 </template>
 
@@ -16,7 +13,6 @@
 import TrProfile from "@/components/TrProfile.vue";
 import ProjectList from "@/components/ProjectList.vue";
 import ColumnList from "@/components/ColumnList.vue";
-import TrSelect from "@/components/kit/TrSelect.vue";
 </script>
 
 <style scoped>

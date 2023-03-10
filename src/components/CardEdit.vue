@@ -45,12 +45,13 @@ const emits = defineEmits(["updateCard"]);
 const editedSummery = ref(props.card.summery);
 const editedDescription = ref(props.card.description);
 
-const cardColumn = ref(null);
+const cardColumn = ref({ name: props.colName });
 const updateCard = async () => {
   const resp = await postUpdateCard(
     props.card,
     editedSummery.value,
     editedDescription.value,
+    cardColumn.value?.id,
     auth.token
   );
 

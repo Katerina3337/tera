@@ -9,7 +9,7 @@ axios.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response.data.message) {
+    if (error.response?.data?.message) {
       toast.error(error.response.data.message);
     } else {
       toast("Неизвестная ошибка");
@@ -104,12 +104,14 @@ export const postUpdateCard = async (
   card,
   editedSummery,
   editedDescription,
+  columnId,
   token
 ) => {
   return await axios.post(
     "http://localhost:3001/card/update-card",
     {
       ...card,
+      ColumnId: columnId || card.columnId,
       summery: editedSummery,
       description: editedDescription,
     },
