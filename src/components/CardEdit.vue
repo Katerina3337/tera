@@ -2,13 +2,12 @@
   <div>
     <div class="navigation">
       <div class="controls">
-        <div class="column-name">
-          <tr-select
-            id="select_column"
-            :options="app.columnList"
-            v-model="cardColumn"
-          />
-        </div>
+        <tr-select
+          id="select_column"
+          :options="app.columnList"
+          v-model="cardColumn"
+        />
+
         <div class="card-name">{{ card.name }}</div>
       </div>
       <div @click="updateCard" class="submit-button">Сохранить</div>
@@ -70,7 +69,7 @@ const updateCard = async () => {
 .controls {
   display: flex;
 }
-.column-name,
+
 .card-name,
 .submit-button {
   display: flex;
@@ -83,10 +82,6 @@ const updateCard = async () => {
   border: none;
   border-radius: 8px;
   cursor: pointer;
-}
-
-.column-name {
-  min-width: 85px;
 }
 
 .select_column option {

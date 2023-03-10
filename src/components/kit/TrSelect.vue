@@ -33,11 +33,19 @@ const selectOption = (o) => {
 
 <style scoped>
 .select {
-  height: 100%;
-  width: 85px;
+  min-height: 35px;
+  max-width: 300px;
+  min-width: 120px;
   position: relative;
+  padding: 10px 15px;
   display: flex;
   justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+  background-color: #5d5a88;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 .select__selected-option {
@@ -45,12 +53,13 @@ const selectOption = (o) => {
 }
 
 .select__dropdown {
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 35px;
+  top: 45px;
   padding: 7px;
   background-color: #a4a2c4;
   border-radius: 5px;
