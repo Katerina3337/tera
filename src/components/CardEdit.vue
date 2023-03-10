@@ -6,12 +6,8 @@
           <tr-select
             id="select_column"
             :options="app.columnList"
-            :selectOpened="isOpened"
-            :selectedOption="chosenOption"
-            @toggleSel="openSelect"
-            @selectOpt="chooseOption"
-          >
-          </tr-select>
+            v-model="cardColumn"
+          />
         </div>
         <div class="card-name">{{ card.name }}</div>
       </div>
@@ -50,19 +46,7 @@ const emits = defineEmits(["updateCard"]);
 const editedSummery = ref(props.card.summery);
 const editedDescription = ref(props.card.description);
 
-const chosenOption = ref(null);
-const isOpened = ref(false);
-
-const openSelect = () => {
-  isOpened.value = !isOpened.value;
-  console.log(isOpened.value);
-};
-
-const chooseOption = (opt) => {
-  chosenOption.value = opt;
-  console.log(opt);
-};
-
+const cardColumn = ref(null);
 const updateCard = async () => {
   const resp = await postUpdateCard(
     props.card,

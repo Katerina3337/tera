@@ -1,6 +1,6 @@
 <template>
   <div @click="toggleSelect" class="select">
-    <div class="select__selected-option">{{ selectedOption.name }}</div>
+    <div class="select__selected-option">{{ selectedOption?.name }}</div>
     <div v-if="selectOpened" class="select__dropdown">
       <div
         v-for="option in options"
@@ -15,25 +15,27 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from "vue";
-defineProps(["options", "selectOpened", "selectedOption"]);
-const emit = defineEmits(["toggleSel"]);
+import { ref, defineProps, defineEmits } from "vue";
+defineProps(["options", "modelValue"]);
+const emit = defineEmits(["update:modelValue"]);
+
+const selectOpened = ref(false);
+const selectedOption = ref(null);
 
 const toggleSelect = () => {
-  emit("toggleSel");
+  selectOpened.value = !selectOpened.value;
 };
 const selectOption = (o) => {
-  emit("selectOpt", o);
+  selectedOption.value = o;
+  emit("update:modelValue", o);
 };
 </script>
 
 <style scoped>
 .select {
   height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
+  width: 85px;
+  position: relative;
   display: flex;
   justify-content: center;
 }
@@ -47,12 +49,16 @@ const selectOption = (o) => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  top: 35px;
   padding: 7px;
   background-color: #a4a2c4;
+  border-radius: 5px;
 }
 
 .option {
-  padding: 3px 5px;
+  padding: 1px 5px;
+  text-align: center;
   border-radius: 3px;
 }
 
