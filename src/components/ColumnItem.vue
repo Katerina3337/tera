@@ -45,7 +45,7 @@
 </template>
 
 <script setup>
-import { defineProps, onMounted, ref } from "vue";
+import { defineProps, defineEmits, onMounted, ref } from "vue";
 import { getCardList, deleteColumn, deleteCard } from "@/api/api";
 import CreateCard from "@/components/CreateCard.vue";
 import TrModal from "@/components/kit/TrModal.vue";
@@ -56,6 +56,9 @@ const app = useAppStore();
 
 import useAuthStore from "@/stores/auth";
 const auth = useAuthStore();
+
+const props = defineProps(["column"]);
+const emit = defineEmits(["update-columns"]);
 
 const cardList = ref(null);
 const createModal = ref(false);
@@ -89,9 +92,9 @@ const updateCard = (upCard) => {
   updatedCard.summery = upCard.summery;
   updatedCard.description = upCard.description;
   closeModal();
-};
 
-const props = defineProps(["column"]);
+  emit("update-columns");
+};
 
 const addCard = (card) => {
   cardList.value.push(card);

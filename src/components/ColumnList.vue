@@ -1,8 +1,8 @@
 <template>
   <div class="columns">
-    <ul v-if="app.columnList?.length" class="column-list">
+    <ul v-if="app.columnList?.length && !refreshList" class="column-list">
       <li v-for="column in app.columnList" :key="column.id" class="column-item">
-        <column-item :column="column" />
+        <column-item :column="column" @update-columns="updateColumns" />
       </li>
     </ul>
     <create-column />
@@ -10,11 +10,22 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
 import ColumnItem from "@/components/ColumnItem.vue";
 import CreateColumn from "@/components/CreateColumn.vue";
 
 import useAppStore from "@/stores/app";
 const app = useAppStore();
+
+//todo временный костыль обновления колонок после перенова задачи
+
+const refreshList = ref(false);
+const updateColumns = () => {
+  refreshList.value = true;
+  setTimeout(() => {
+    refreshList.value = false;
+  }, 0);
+};
 </script>
 
 <style scoped>
