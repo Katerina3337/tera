@@ -30,14 +30,14 @@
         title="Удалить задачу"
         class="card-icon"
       />
-      <tr-modal
-        btnText="Удалить задачу"
-        :isOpened="createCardModal"
-        :cancel-action="true"
-        @mSubmit="removeCard(card.id)"
-        @mClose="closeCardModal"
-      />
     </li>
+    <tr-modal
+      btnText="Удалить задачу"
+      :isOpened="createCardModal"
+      :cancel-action="true"
+      @mSubmit="removeCard(card.id)"
+      @mClose="closeCardModal"
+    />
   </ul>
   <tr-modal
     :hide-submit="true"
