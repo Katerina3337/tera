@@ -2,10 +2,17 @@
   <div class="column">
     <h3 class="column-title">{{ column.name }}</h3>
     <font-awesome-icon
-      @click="removeColumn(column.id)"
+      @click="openColModal"
       icon="fa-solid fa-trash"
       title="Удалить колонку"
       class="icon"
+    />
+    <tr-modal
+      btnText="Удалить колонку"
+      :isOpened="useModal"
+      :cancel-action="true"
+      @mSubmit="removeColumn(column.id)"
+      @mClose="closeColModal"
     />
   </div>
   <ul v-if="cardList && cardList.length" class="cards">
@@ -18,10 +25,17 @@
       <div class="card_name">{{ card.name }}</div>
       <div class="card_summary">{{ card.summery }}</div>
       <font-awesome-icon
-        @click.stop="removeCard(card.id)"
+        @click.stop="openCardModal"
         icon="fa-solid fa-trash"
         title="Удалить задачу"
         class="card-icon"
+      />
+      <tr-modal
+        btnText="Удалить задачу"
+        :isOpened="createCardModal"
+        :cancel-action="true"
+        @mSubmit="removeCard(card.id)"
+        @mClose="closeCardModal"
       />
     </li>
   </ul>
@@ -62,6 +76,8 @@ const emit = defineEmits(["update-columns"]);
 
 const cardList = ref(null);
 const createModal = ref(false);
+const useModal = ref(false);
+const createCardModal = ref(false);
 const cardEdited = ref(null);
 const cardEditedColName = ref("");
 
@@ -77,6 +93,22 @@ const openModal = () => {
 };
 const closeModal = () => {
   createModal.value = false;
+};
+
+const openColModal = () => {
+  useModal.value = true;
+};
+
+const closeColModal = () => {
+  useModal.value = false;
+};
+
+const openCardModal = () => {
+  createCardModal.value = true;
+};
+
+const closeCardModal = () => {
+  createCardModal.value = false;
 };
 
 const editCard = (card, columnName) => {
@@ -110,6 +142,7 @@ const removeCard = async (id) => {
 
     cardList.value.splice(cardIdx, 1);
   }
+  closeColModal();
 };
 
 const removeColumn = async (id) => {
@@ -122,6 +155,7 @@ const removeColumn = async (id) => {
 
     app.columnList.splice(columnIdx, 1);
   }
+  closeCardModal();
 };
 </script>
 

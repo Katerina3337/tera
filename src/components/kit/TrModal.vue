@@ -6,9 +6,14 @@
         <div class="cross-sign"></div>
       </div>
       <slot name="modal-body"></slot>
-      <button v-if="!hideSubmit" @click="modalSubmit" class="submit">
-        {{ btnText }}
-      </button>
+      <div class="buttons">
+        <button v-if="!hideSubmit" @click="modalSubmit" class="submit">
+          {{ btnText }}
+        </button>
+        <button v-if="cancelAction" @click="modalClose" class="cancel__action">
+          Отмена
+        </button>
+      </div>
     </div>
     <div @click="modalClose" class="overlay"></div>
   </div>
@@ -17,7 +22,13 @@
 <script setup>
 import { defineProps, defineEmits } from "vue";
 
-defineProps(["isOpened", "btnText", "hideSubmit", "modalWidth"]);
+defineProps([
+  "isOpened",
+  "btnText",
+  "hideSubmit",
+  "modalWidth",
+  "cancelAction",
+]);
 
 const emit = defineEmits(["mSubmit", "mClose"]);
 
@@ -98,5 +109,22 @@ const modalSubmit = (e) => {
 }
 .cross-sign:after {
   transform: rotate(-45deg);
+}
+
+.cancel__action {
+  min-width: 130px;
+  height: 45px;
+  margin-left: 20px;
+  padding: 0 15px;
+  font-size: 15px;
+  color: #5d5a88;
+  border: 3px solid #5d5a88;
+  border-radius: 47px;
+  outline: 0;
+  cursor: pointer;
+}
+
+.cancel__action:hover {
+  box-shadow: 4px 4px 8px 0 rgba(34, 60, 80, 0.2);
 }
 </style>

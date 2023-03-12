@@ -11,10 +11,17 @@
         <div class="project">
           {{ project.name }}
           <font-awesome-icon
-            @click.stop="deleteProject(project.id)"
+            @click.stop="openModal"
             icon="fa-solid fa-trash"
             title="Удалить проект"
             class="icon"
+          />
+          <tr-modal
+            btnText="Удалить проект"
+            :isOpened="createModal"
+            :cancel-action="true"
+            @mSubmit="deleteProject(project.id)"
+            @mClose="closeModal"
           />
         </div>
       </li>
@@ -28,6 +35,7 @@
 import { ref, onMounted } from "vue";
 import { deleteDeleteProject, getProjectList } from "@/api/api";
 import CreateProject from "@/components/CreateProject.vue";
+import TrModal from "@/components/kit/TrModal.vue";
 
 import useAppStore from "@/stores/app";
 import useAuthStore from "@/stores/auth";
@@ -62,6 +70,16 @@ const deleteProject = async (id) => {
 
     projectList.value.splice(projectIdx, 1);
   }
+  closeModal();
+};
+
+const createModal = ref(false);
+
+const openModal = () => {
+  createModal.value = true;
+};
+const closeModal = () => {
+  createModal.value = false;
 };
 </script>
 
