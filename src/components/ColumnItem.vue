@@ -14,12 +14,12 @@
       @mSubmit="removeColumn(column.id)"
       @mClose="closeColModal"
     />
-    <card-list :colId="column.id" :col="column"></card-list>
+    <card-list :colId="column.id" :col="column" @update-columns="upCol"></card-list>
   </div>
 </template>
 
 <script setup>
-import { defineProps, ref } from "vue";
+import { defineProps, defineEmits, ref } from "vue";
 import { deleteColumn } from "@/api/api";
 import CardList from "@/components/CardList.vue";
 import TrModal from "@/components/kit/TrModal.vue";
@@ -31,6 +31,7 @@ import useAuthStore from "@/stores/auth";
 const auth = useAuthStore();
 
 defineProps(["column"]);
+const emit = defineEmits(["upCol"]);
 
 const useModal = ref(false);
 
@@ -41,6 +42,10 @@ const openColModal = () => {
 const closeColModal = () => {
   useModal.value = false;
 };
+
+const upCol = () => {
+  emit("update-columns");
+}
 
 const removeColumn = async (id) => {
   const resp = await deleteColumn(id, auth.token);
