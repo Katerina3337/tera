@@ -6,22 +6,16 @@
       @click="editCard(card, col.name)"
       class="card"
     >
-      <div class="card_name">{{ card.name }}</div>
-      <div class="card_summary">{{ card.summery }}</div>
-      <font-awesome-icon
-        @click.stop="openCardModal(card.id)"
-        icon="fa-solid fa-trash"
-        title="Удалить задачу"
-        class="card-icon"
-      />
+    <card-item :card="card" @open-modal="openCardModal"></card-item>
     </li>
     <tr-modal
-      btnText="Удалить задачу"
-      :isOpened="createCardModal"
-      :cancel-action="true"
-      @mSubmit="removeCard"
-      @mClose="closeCardModal"
+        btnText="Удалить задачу"
+        :isOpened="createCardModal"
+        :cancel-action="true"
+        @mSubmit="removeCard"
+        @mClose="closeCardModal"
     />
+
   </ul>
   <tr-modal
     :hide-submit="true"
@@ -45,6 +39,7 @@
 <script setup>
 import CreateCard from "@/components/CreateCard.vue";
 import CardEdit from "@/components/CardEdit.vue";
+import CardItem from "@/components/CardItem.vue";
 import TrModal from "@/components/kit/TrModal.vue";
 import useAuthStore from "@/stores/auth";
 import { deleteCard, getCardList } from "@/api/api";
@@ -59,6 +54,7 @@ const cardEdited = ref(null);
 const cardEditedColName = ref("update-columns");
 
 const createModal = ref(false);
+
 const createCardModal = ref(false);
 
 const deleteCardId = ref(null);
@@ -137,21 +133,5 @@ const removeCard = async () => {
   background-color: #d4d2e3;
   border-radius: 5px;
   cursor: pointer;
-}
-
-.card_name {
-  font-weight: bold;
-}
-
-.card_summary {
-  margin-right: 3px;
-}
-
-.card-icon {
-  display: inline-block;
-  position: absolute;
-  right: 5px;
-  bottom: 5px;
-  margin-left: 5px;
 }
 </style>

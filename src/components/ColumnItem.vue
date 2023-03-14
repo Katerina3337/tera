@@ -1,12 +1,14 @@
 <template>
   <div class="column">
-    <h3 class="column-title">{{ column.name }}</h3>
-    <font-awesome-icon
-      @click="openColModal"
-      icon="fa-solid fa-trash"
-      title="Удалить колонку"
-      class="icon"
-    />
+    <div class="title">
+      <h3 class="column-title">{{ column.name }}</h3>
+      <font-awesome-icon
+          @click="openColModal"
+          icon="fa-solid fa-trash"
+          title="Удалить колонку"
+          class="icon"
+      />
+    </div>
     <tr-modal
       btnText="Удалить колонку"
       :isOpened="useModal"
@@ -64,12 +66,18 @@ const removeColumn = async (id) => {
 <style scoped>
 .column {
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.title {
+  display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .icon {
-  display: block;
+  display: inline-block;
   margin-bottom: 15px;
   cursor: pointer;
 }
