@@ -9,6 +9,7 @@
         />
 
         <div class="card-name">{{ card.name }}</div>
+        <color-select v-model="priority" @delete-priority="delPriority"/>
       </div>
       <div @click="updateCard" class="submit-button">Сохранить</div>
     </div>
@@ -34,6 +35,7 @@
 import { ref, defineProps, defineEmits } from "vue";
 import { postUpdateCard } from "@/api/api";
 import TrSelect from "@/components/kit/TrSelect.vue";
+import ColorSelect from "@/components/kit/ColorSelect.vue";
 import useAuthStore from "@/stores/auth";
 import useAppStore from "@/stores/app";
 
@@ -45,13 +47,20 @@ const emits = defineEmits(["updateCard"]);
 const editedSummery = ref(props.card.summery);
 const editedDescription = ref(props.card.description);
 
+const priority = ref(props.card.priority);
+
 const cardColumn = ref({ name: props.colName });
+
+const delPriority = () => {
+
+}
 const updateCard = async () => {
   const resp = await postUpdateCard(
     props.card,
     editedSummery.value,
     editedDescription.value,
     cardColumn.value?.id,
+    priority.value,
     auth.token
   );
 
@@ -95,6 +104,7 @@ const updateCard = async () => {
 
 .card-name {
   margin-left: 15px;
+  margin-right: 15px;
 }
 .summary,
 .description {

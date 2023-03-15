@@ -48,7 +48,7 @@ import { ref, defineProps, defineEmits, onMounted } from "vue";
 const auth = useAuthStore();
 
 const props = defineProps(["colId", "col"]);
-const emit = defineEmits([]);
+const emit = defineEmits(["update-columns"]);
 
 const cardEdited = ref(null);
 const cardEditedColName = ref("update-columns");

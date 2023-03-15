@@ -105,6 +105,7 @@ export const postUpdateCard = async (
   editedSummery,
   editedDescription,
   columnId,
+  priority,
   token
 ) => {
   return await axios.post(
@@ -114,6 +115,7 @@ export const postUpdateCard = async (
       ColumnId: columnId || card.columnId,
       summery: editedSummery,
       description: editedDescription,
+      priority: priority,
     },
     {
       headers: {

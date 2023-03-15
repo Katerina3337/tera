@@ -33,7 +33,7 @@ import useAuthStore from "@/stores/auth";
 const auth = useAuthStore();
 
 defineProps(["column"]);
-const emit = defineEmits(["upCol"]);
+const emit = defineEmits(["upCol", "update-columns"]);
 
 const useModal = ref(false);
 
