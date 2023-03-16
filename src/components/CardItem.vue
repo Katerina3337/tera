@@ -60,6 +60,7 @@ const openCardModal = (cardId) => {
 .color {
   width: 20px;
   height: 20px;
+  margin-top: 3px;
   margin-bottom: 5px;
   border-radius: 50%;
 }

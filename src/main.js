@@ -12,6 +12,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faCircle } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 library.add(
@@ -19,7 +20,7 @@ library.add(
   faPlus,
   faArrowDown,
   faArrowRightFromBracket,
-  faTrash
+  faTrash, faCircle
 );
 
 const app = createApp(App);

@@ -17,7 +17,7 @@
     </div>
     <font-awesome-icon
         @click="deletePriority(null)"
-        icon="fa-solid fa-trash"
+        icon="fa-regular fa-circle"
         title="Убрать приоритетность"
         class="card-icon"
     />
