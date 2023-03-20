@@ -14,7 +14,7 @@
 import {defineProps, defineEmits, computed} from 'vue';
 
 const props = defineProps(["card"]);
-const emit = defineEmits(["remove-card", "open-modal"]);
+const emit = defineEmits(["open-modal"]);
 
 const chosenColor = computed(() => {
   switch (props.card.priority) {

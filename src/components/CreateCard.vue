@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-import axios from "axios";
+import { postCreateCard } from "@/api/api";
 import { ref, defineProps } from "vue";
 import enterSubmit from "@/lib/enterSubmit";
 import TrModal from "@/components/kit/TrModal.vue";
@@ -61,20 +61,7 @@ const closeModal = () => {
 const createCard = async () => {
   if (!props.columnId) return;
 
-  const resp = await axios.post(
-    "http://localhost:3001/card/create-card",
-    {
-      name: cardName.value,
-      summery: summery.value,
-      description: description.value,
-      column_id: props.columnId,
-    },
-    {
-      headers: {
-        Authorization: auth.token,
-      },
-    }
-  );
+  const resp = await postCreateCard(cardName.value, summery.value, description.value, props.columnId, auth.token);
 
   if (resp.data.card) {
     emit("cardCreated", resp.data.card);

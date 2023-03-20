@@ -100,6 +100,23 @@ export const getCardList = async (id, token) => {
   });
 };
 
+export const postCreateCard = async (cardName, summery, description, columnId, token) => {
+  return await axios.post(
+      "http://localhost:3001/card/create-card",
+      {
+        name: cardName,
+        summery: summery,
+        description: description,
+        column_id: columnId,
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+  );
+}
+
 export const postUpdateCard = async (
   card,
   editedSummery,
