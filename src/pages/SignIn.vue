@@ -2,14 +2,14 @@
   <div>
     <div class="sign-form">
       <tr-input v-model="login" placeholder="Логин" @submitInput="signIn" />
-      <span>{{ errorMessage }}</span>
+      <span class="validation-message">{{ errorMessage }}</span>
       <tr-input
         v-model="password"
         :isPassword="true"
         placeholder="Пароль"
         @submitInput="signIn"
       />
-      <span>{{ errMessage }}</span>
+      <span class="validation-message">{{ errMessage }}</span>
       <button @click="signIn" class="submit sign-in__button">Войти</button>
       <RouterLink to="/sign-up" class="sign-link"
         >Зарегистрироваться</RouterLink
@@ -50,13 +50,15 @@ const { value: password, errorMessage: errMessage } = useField('password', yup.s
 </script>
 
 <style scoped>
-.input {
-  margin-bottom: 20px;
-}
 .submit {
   margin-top: 0;
 }
 .sign-in__button {
   margin-top: 15px;
+}
+.validation-message {
+  height: 30px;
+  font-size: 14px;
+  color: #5952a2;
 }
 </style>

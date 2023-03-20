@@ -6,17 +6,17 @@
         placeholder="Имя пользователя"
         @submitInput="signUp"
       />
-      <span>{{ errName }}</span>
+      <span class="validation-message">{{ errName }}</span>
 
       <tr-input v-model="login" placeholder="Логин" @submitInput="signUp" />
-      <span>{{ errLogin }}</span>
+      <span class="validation-message">{{ errLogin }}</span>
       <tr-input
         v-model="password"
         :isPassword="true"
         placeholder="Пароль"
         @submitInput="signUp"
       />
-      <span>{{ errPassword }}</span>
+      <span class="validation-message">{{ errPassword }}</span>
       <button @click="signUp" class="submit">Зарегистрироваться</button>
       <RouterLink to="/sign-in" class="sign-link">Войти</RouterLink>
     </div>
@@ -54,11 +54,14 @@ const { value: password, errorMessage: errPassword } = useField('password', yup.
 </script>
 
 <style scoped>
-.input {
-  margin-bottom: 20px;
-}
+
 .submit {
   margin-bottom: 0;
   margin-top: 20px;
+}
+.validation-message {
+  height: 30px;
+  font-size: 14px;
+  color: #5952a2;
 }
 </style>
