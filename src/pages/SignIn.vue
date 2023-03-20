@@ -47,7 +47,6 @@ const signIn = async () => {
 const { value: login, errorMessage } = useField('login', yup.string().required("Это поле обязательное").email("Данное поле должно быть электронной почтой"));
 const { value: password, errorMessage: errMessage } = useField('password', yup.string().required("Это поле обязательное").min(8, "Минимум 8 символов"));
 
-
 </script>
 
 <style scoped>
