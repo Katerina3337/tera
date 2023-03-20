@@ -2,13 +2,14 @@
   <div>
     <div class="sign-form">
       <tr-input v-model="login" placeholder="Логин" @submitInput="signIn" />
-
+      <span>{{ errorMessage }}</span>
       <tr-input
         v-model="password"
         :isPassword="true"
         placeholder="Пароль"
         @submitInput="signIn"
       />
+      <span>{{ errMessage }}</span>
       <button @click="signIn" class="submit sign-in__button">Войти</button>
       <RouterLink to="/sign-up" class="sign-link"
         >Зарегистрироваться</RouterLink
@@ -18,18 +19,17 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
 import { postSignIn } from "@/api/api";
 import TrInput from "@/components/kit/TrInput.vue";
+import { useField } from "vee-validate";
+import * as yup from 'yup';
+
 
 import { useRouter } from "vue-router";
 import useAuthStore from "@/stores/auth";
 
 const router = useRouter();
 const auth = useAuthStore();
-
-const login = ref("");
-const password = ref("");
 
 const signIn = async () => {
   const response = await postSignIn(login.value, password.value);
@@ -43,6 +43,11 @@ const signIn = async () => {
   }
   router.push("/");
 };
+
+const { value: login, errorMessage } = useField('login', yup.string().required("Это поле обязательное").email("Данное поле должно быть электронной почтой"));
+const { value: password, errorMessage: errMessage } = useField('password', yup.string().required("Это поле обязательное").min(8, "Минимум 8 символов"));
+
+
 </script>
 
 <style scoped>
