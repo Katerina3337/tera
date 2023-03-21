@@ -17,7 +17,7 @@
         @submitInput="signUp"
       />
       <span class="validation-message">{{ errPassword }}</span>
-      <button @click="signUp" class="submit">Зарегистрироваться</button>
+      <button @click="signUp" class="submit" :disabled="!isDisabled">Зарегистрироваться</button>
       <RouterLink to="/sign-in" class="sign-link">Войти</RouterLink>
     </div>
   </div>
@@ -29,9 +29,15 @@ import { postSignUp } from "@/api/api";
 import TrInput from "@/components/kit/TrInput.vue";
 import { useField } from "vee-validate";
 import * as yup from 'yup';
+import { ref, onMounted } from "vue";
 
 const router = useRouter();
 
+onMounted(() => {
+  if(errName || errLogin || errPassword){
+    isDisabled.value = !isDisabled.value;
+  }
+})
 const signUp = async () => {
   await postSignUp(name.value, login.value, password.value);
   // todo Исправить краш скрипта при ответе сервера с ошибкой
@@ -51,6 +57,8 @@ const { value: login, errorMessage: errLogin } = useField('login', yup.string()
 const { value: password, errorMessage: errPassword } = useField('password', yup.string()
     .required("Это поле обязательно для заполнения")
     .min(8, "Минимум 8 символов"));
+
+const isDisabled = ref(false);
 </script>
 
 <style scoped>
